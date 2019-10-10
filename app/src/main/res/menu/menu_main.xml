@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_adicionar"
+        android:icon="@drawable/ic_adicionar_white"
+        android:title="@string/action_adicionar"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_config"
+        android:icon="@drawable/ic_configuracoes_white"
+        android:title="@string/action_config"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_sair"
+        android:icon="@drawable/ic_voltar_black"
+        android:title="Sair"
+        app:showAsAction="never"/>
+
+</menu>

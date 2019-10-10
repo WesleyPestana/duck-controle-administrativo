@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/titulo"
+        android:text="@string/mensagem_inicial"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"/>
+    <TextView
+        android:id="@+id/labelUsuario"
+        android:text="Usuário"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/campo_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10" />
+    <TextView
+        android:id="@+id/labelSenha"
+        android:text="Senha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/campo_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"/>
+    <Button
+        android:id="@+id/botao_login"
+        android:text="Login"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"/>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon"/>
+
+</LinearLayout>
