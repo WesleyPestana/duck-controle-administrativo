@@ -1,2 +1,6 @@
 # Sistema Duck Aplicativo
-+ Módulo controle de despesas do sistema Duck em aplicativo android
++ Módulo controle de estoque do sistema Duck em aplicativo android
+
+### Módulos extras:
+- Despesas
+- Fornecedores
