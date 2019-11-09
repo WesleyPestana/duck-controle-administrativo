@@ -14,11 +14,26 @@ class MainActivity : AppCompatActivity() {
 
 
         botao_login.setOnClickListener {onClickLogin()}
+
+        campo_usuario.setText(Prefs.getString("lembrarNome"))
+        campo_senha.setText(Prefs.getString("lembrarSenha"))
+        check_login.isChecked = Prefs.getBoolean("checkLembrar")
     }
 
     fun onClickLogin() {
         val valorUsuario = campo_usuario.text.toString()
         val valorSenha = campo_senha.text.toString()
+
+        val valorCheck = check_login.isChecked
+        Prefs.setBoolean("checkLembrar", valorCheck)
+
+        if (valorCheck) {
+            Prefs.setString("lembrarNome", valorUsuario)
+            Prefs.setString("lembrarSenha", valorSenha)
+        } else {
+            Prefs.setString("lembrarNome", "")
+            Prefs.setString("lembrarSenha", "")
+        }
 
         if (valorUsuario == "aluno" && valorSenha == "impacta") {
             val intent = Intent(this, TelaInicialActivity::class.java)

@@ -65,6 +65,14 @@
                         android:textColor="#ffffff"
                         android:textSize="15sp"/>
 
+                    <CheckBox
+                        android:id="@+id/check_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lembrar-me"
+                        android:textColor="#CCFFFFFF"
+                        android:buttonTint="#CCFFFFFF"/>
+
                     <Button android:id="@+id/botao_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

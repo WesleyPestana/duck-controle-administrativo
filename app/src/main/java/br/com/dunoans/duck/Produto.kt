@@ -1,9 +1,13 @@
 package br.com.dunoans.duck
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
+@Entity(tableName = "produto")
 class Produto: Serializable{
 
+    @PrimaryKey
     var id: Long = 0
     var nome: String = ""
     var quantidade: Int = 0

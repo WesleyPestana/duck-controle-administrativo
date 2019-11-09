@@ -21,6 +21,9 @@ class TelaInicialActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     private val context: Context get() = this
     private var produtos = listOf<Produto>()
 
+    private var REQUEST_CADASTRO = 1
+    private var REQUEST_REMOVE = 2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_inicial)
@@ -73,7 +76,7 @@ class TelaInicialActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         Toast.makeText(context, "Clicou produto ${produto.nome}", Toast.LENGTH_SHORT).show()
         val intent = Intent(context, ProdutoActivity::class.java)
         intent.putExtra("produto", produto)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_REMOVE)
     }
 
     private fun configuraMenuLateral() {
@@ -160,7 +163,7 @@ class TelaInicialActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     fun novoProduto() {
         val intent = Intent(this, NovoProdutoActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CADASTRO)
     }
 
     fun onClickConfig() {
