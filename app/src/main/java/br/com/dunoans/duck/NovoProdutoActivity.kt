@@ -10,6 +10,7 @@ class NovoProdutoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_novo_produto)
+        setTitle("Novo Produto")
 
         adicionar_produto.setOnClickListener {
             var p = Produto()
@@ -19,13 +20,19 @@ class NovoProdutoActivity : AppCompatActivity() {
             p.descricao = desc_produto.text.toString()
             p.foto = foto_produto.text.toString()
 
-            Thread {
-                ProdutoService.save(p)
-                runOnUiThread {
-                    finish()
-                }
-            }.start()
+            taskAdicionar(p)
         }
+    }
+
+    private fun taskAdicionar(produto: Produto) {
+        // Thread para salvar a discilpina
+        Thread {
+            ProdutoService.save(produto)
+            runOnUiThread {
+                // após cadastrar, voltar para activity anterior
+                finish()
+            }
+        }.start()
     }
 
 }

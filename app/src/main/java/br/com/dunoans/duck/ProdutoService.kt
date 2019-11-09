@@ -6,6 +6,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import org.json.JSONArray
 import java.net.URL
 
 object ProdutoService {
@@ -13,40 +14,77 @@ object ProdutoService {
     var host = "https://wesleypestana.pythonanywhere.com"
     var TAG = "WS_DUCKApp"
 
-    fun getProdutos(context: Context): List<Produto> {
-        /*
-        val produtos = mutableListOf<Produto>()
+    fun getProdutos (context: Context): List<Produto> {
+        var produtos = ArrayList<Produto>()
+        if (AndroidUtils.isInternetDisponivel(context)) {
+            val url = "$host/produtos"
+            val json = HttpHelper.get(url)
+            produtos = parserJson(json)
+            // salvar offline
+            for (d in produtos) {
+                saveOffline(d)
+            }
+            return produtos
+        } else {
+            val dao = DatabaseManager.getProdutoDAO()
+            val produtos = dao.findAll()
+            return produtos
+        }
 
-        var url = "$host/produtos"
-        var json = HttpHelper.get(url)
-        Log.d(TAG, json)
+    }
 
-        return parseJson(json)
-        */
+    fun getProduto (context: Context, id: Long): Produto? {
 
-        return DatabaseManager.getProdutoDAO().findAll()
+        if (AndroidUtils.isInternetDisponivel(context)) {
+            val url = "$host/produtos/${id}"
+            val json = HttpHelper.get(url)
+            val produto = parserJson<Produto>(json)
+
+            return produto
+        } else {
+            val dao = DatabaseManager.getProdutoDAO()
+            val produto = dao.getById(id)
+            return produto
+        }
+
     }
 
     fun save(produto: Produto): Response {
-        // HttpHelper.post("$host/produtos", GsonBuilder().create().toJson(produto))
-        DatabaseManager.getProdutoDAO().insert(produto)
+        val json = HttpHelper.post("$host/produtos", produto.toJson())
+        return parserJson(json)
+    }
 
-        return Response("OK", "OK")
+    fun saveOffline(produto: Produto) : Boolean {
+        val dao = DatabaseManager.getProdutoDAO()
+
+        if (! existeProduto(produto)) {
+            dao.insert(produto)
+        }
+
+        return true
+
+    }
+
+    fun existeProduto(produto: Produto): Boolean {
+        val dao = DatabaseManager.getProdutoDAO()
+        return dao.getById(produto.id) != null
     }
 
     fun delete(produto: Produto): Response {
-        /*Log.d(TAG, protudo.id.toString())
-        val url = "$host/protudos/${produto.id}"
-        val json = HttpHelper.delete(url)
-        Log.d(TAG, json)
-        return parserJson(json)*/
+        if (AndroidUtils.isInternetDisponivel(DuckApplication.getInstance().applicationContext)) {
+            val url = "$host/produtos/${produto.id}"
+            val json = HttpHelper.delete(url)
 
-        DatabaseManager.getProdutoDAO().delete(produto)
+            return parserJson(json)
+        } else {
+            val dao = DatabaseManager.getProdutoDAO()
+            dao.delete(produto)
+            return Response(status = "OK", msg = "Dados salvos localmente")
+        }
 
-        return Response("OK", "OK")
     }
 
-    inline fun <reified T> parseJson(json: String): T {
+    inline fun <reified T> parserJson(json: String): T {
         val type = object: TypeToken<T>(){}.type
 
         return Gson().fromJson<T>(json, type)

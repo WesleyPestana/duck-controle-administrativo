@@ -12,22 +12,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
-
         botao_login.setOnClickListener {onClickLogin()}
 
-        campo_usuario.setText(Prefs.getString("lembrarNome"))
-        campo_senha.setText(Prefs.getString("lembrarSenha"))
-        check_login.isChecked = Prefs.getBoolean("checkLembrar")
+        var lembrar = Prefs.getBoolean("checkLembrar")
+
+        if (lembrar) {
+            var lembrarNome = Prefs.getString("lembrarNome")
+            var lembrarSenha = Prefs.getString("lembrarSenha")
+
+            campo_usuario.setText(lembrarNome)
+            campo_senha.setText(lembrarSenha)
+            check_login.isChecked = lembrar
+        }
     }
 
     fun onClickLogin() {
         val valorUsuario = campo_usuario.text.toString()
         val valorSenha = campo_senha.text.toString()
 
-        val valorCheck = check_login.isChecked
-        Prefs.setBoolean("checkLembrar", valorCheck)
+        Prefs.setBoolean("checkLembrar", check_login.isChecked)
 
-        if (valorCheck) {
+        if (check_login.isChecked) {
             Prefs.setString("lembrarNome", valorUsuario)
             Prefs.setString("lembrarSenha", valorSenha)
         } else {

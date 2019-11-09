@@ -1,5 +1,6 @@
 package br.com.dunoans.duck
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,13 +16,17 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 class ProdutoActivity : AppCompatActivity() {
 
+    private val context: Context get() = this
     var produto: Produto? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_produto)
 
-        produto = intent.getSerializableExtra("produto") as Produto
+        // recuperar objeto do Produto da Intent
+        if (intent.getSerializableExtra("produto") is Produto) {
+            produto = intent.getSerializableExtra("produto") as Produto
+        }
 
         setSupportActionBar(toolbar)
 
@@ -63,6 +68,7 @@ class ProdutoActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun taskExcluir() {
         if (this.produto != null && this.produto is Produto) {
             Thread {

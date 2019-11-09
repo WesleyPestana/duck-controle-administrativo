@@ -176,4 +176,13 @@ class TelaInicialActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         startActivity(intent)
         finish()
     }
+
+    // esperar o retorno do cadastro da disciplina
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de produtos
+            taskProdutos()
+        }
+    }
+
 }
