@@ -153,8 +153,9 @@ class TelaInicialActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     fun onClickProdutos() {
-        val intent = Intent(this, ProdutoActivity::class.java)
+        val intent = Intent(this, TelaInicialActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     fun novoProduto() {
