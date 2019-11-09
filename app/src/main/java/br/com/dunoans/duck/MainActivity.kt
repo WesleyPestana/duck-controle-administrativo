@@ -27,5 +27,9 @@ class MainActivity : AppCompatActivity() {
         else {
             Toast.makeText(this, "Usuário ou senha incorretos", Toast.LENGTH_SHORT).show()
         }
+
+        /*
+        val intent = Intent(this, TelaInicialActivity::class.java)
+        startActivity(intent)*/
     }
 }
